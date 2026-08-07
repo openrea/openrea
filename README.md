@@ -100,4 +100,8 @@ Contributions are accepted under the **Developer Certificate of Origin** (no CLA
 
 ## License
 
-Intended split, pending final review before first release: **Apache-2.0 / CC-BY-4.0** for the specification, schemas, examples, and conformance fixtures (standards need zero-friction adoption); copyleft evaluated only for a future reference implementation. Sovereignty is enforced by the portability contract, not the license.
+**Apache-2.0**, for everything in this repository — specification text, schemas, examples, and conformance fixtures (see LICENSE and NOTICE). One license, an express patent grant from every contributor, and no trademark rights for forks: the code travels freely, the name stays governed by conformance.
+
+Reference implementations are separate works and may adopt their own licenses when they exist; that decision is deliberately deferred. Sovereignty is enforced by the portability contract (SPEC §11) and the conformance suite, not the license.
+
+Contributions are accepted under Apache-2.0 with DCO sign-off — see [CONTRIBUTING.md](CONTRIBUTING.md). No CLA.

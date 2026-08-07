@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """openREA document-conformance validator (v0.1-draft).
 
 Checks what JSON Schema alone cannot (SPEC §5, §7) on top of schema validation:

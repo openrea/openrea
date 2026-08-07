@@ -1,4 +1,4 @@
-# OpenREA Conformance (v0.1-draft)
+# openREA Conformance (v0.1-draft)
 
 Two levels. Level 1 is implemented here; level 2 is specified and stubbed.
 

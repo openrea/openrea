@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""OpenREA document-conformance validator (v0.1-draft).
+"""openREA document-conformance validator (v0.1-draft).
 
 Checks what JSON Schema alone cannot (SPEC §5, §7) on top of schema validation:
   1. schema validity (schema/openrea.schema.json, draft 2020-12, format-checked)

@@ -1,4 +1,4 @@
-# OpenREA Constitutional Principles
+# openREA Constitutional Principles
 
 These principles govern the project. Proposals that conflict with them need to change the constitution first, in public, with reasons.
 

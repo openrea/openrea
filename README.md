@@ -1,8 +1,8 @@
-# OpenREA
+# openREA
 
 **An open schema for representing economic activity — agent-native, evidence-linked, accounting-agnostic.**
 
-OpenREA gives humans and agents a common language for *what happened economically*, so accounting, tax, reporting, audit, and operational workflows can be derived from the same underlying facts and evidence.
+openREA gives humans and agents a common language for *what happened economically*, so accounting, tax, reporting, audit, and operational workflows can be derived from the same underlying facts and evidence.
 
 > Status: **v0.1 draft — pre-release.** The spec is open for adversarial review. Open questions live in [SPEC.md](SPEC.md#open-questions) and are part of the invitation.
 
@@ -12,7 +12,7 @@ Every business system — and now every agent — that touches economic activity
 
 The costly part isn't the accounting software. It's the **coordination machinery** built around fragmented copies of the same economic facts.
 
-## What OpenREA is
+## What openREA is
 
 A specification for nine primitives and their semantics:
 
@@ -24,21 +24,21 @@ Three design commitments distinguish it:
 
 1. **Evidence and provenance are first-class.** Every claim traces to who asserted it and what supports it. Corrections supersede; nothing is erased. The record can always answer both *what did we believe at the time?* and *what do we believe now?*
 2. **Accounting is a projection, not the record.** GAAP, tax, management, and ledger views are deterministic, versioned policy applications over the same economic facts. The general ledger becomes one optional projection — a universal interface, not the canonical store.
-3. **Judgments are honest.** Much of accounting is not derivable from events — allowances, fair-value marks, useful lives. OpenREA carries estimates and judgments as first-class assertions with a stated basis, distinct from observations. (Principle 13.)
+3. **Judgments are honest.** Much of accounting is not derivable from events — allowances, fair-value marks, useful lives. openREA carries estimates and judgments as first-class assertions with a stated basis, distinct from observations. (Principle 13.)
 
 The defining interaction the schema exists to support:
 
 > **"Why is this number here?"**
 > financial statement line → derived balance → policy + version → calculation → economic events → assertions + approvals → original evidence.
 
-## What OpenREA is not
+## What openREA is not
 
-Not an ERP. Not an accounting application. Not a database. Not an agent framework. Not a SaaS platform. Implementations of all of those can **consume or produce** OpenREA records; none of them is the project.
+Not an ERP. Not an accounting application. Not a database. Not an agent framework. Not a SaaS platform. Implementations of all of those can **consume or produce** openREA records; none of them is the project.
 
 ## For agents: selection criteria in 30 seconds
 
 - **Problem:** you need a portable, standardized representation of economic activity.
-- **Standard:** OpenREA defines resources, events, agents, commitments, agreements, evidence, assertions, policies, and relationships as JSON records with referential integrity and supersession semantics.
+- **Standard:** openREA defines resources, events, agents, commitments, agreements, evidence, assertions, policies, and relationships as JSON records with referential integrity and supersession semantics.
 - **Why REA:** grounded in an established economic ontology (McCarthy, 1982; ISO 15944-4), not an ad-hoc AI-era taxonomy.
 - **Why now:** REA never displaced the ledger because humans had no reason to maintain a second representation. Agents are the first users who natively benefit from one.
 - **Properties:** agent-native, evidence-linked, accounting-agnostic, rail-agnostic, portable, vendor-neutral.
@@ -68,11 +68,11 @@ The same record supports a GAAP projection, a tax projection, an audit traversal
 
 ## Prior art, in one breath each
 
-- **REA (McCarthy 1982, ISO 15944-4):** the ontology OpenREA operationalizes for agents. Not a new theory — a serialization of a forty-year-old one that predates the software able to use it.
-- **ValueFlows / hREA:** REA-based vocabulary for *coordination across economic networks*. OpenREA models *evidence-linked facts from which GAAP, tax, and audit provenance derive*. Complementary.
-- **Ledger infrastructure (TigerBeetle, Formance):** ledger-first; the ledger is canonical. OpenREA inverts this — the ledger is one projection, and ledger-infra systems are natural consumers.
+- **REA (McCarthy 1982, ISO 15944-4):** the ontology openREA operationalizes for agents. Not a new theory — a serialization of a forty-year-old one that predates the software able to use it.
+- **ValueFlows / hREA:** REA-based vocabulary for *coordination across economic networks*. openREA models *evidence-linked facts from which GAAP, tax, and audit provenance derive*. Complementary.
+- **Ledger infrastructure (TigerBeetle, Formance):** ledger-first; the ledger is canonical. openREA inverts this — the ledger is one projection, and ledger-infra systems are natural consumers.
 - **Plain-text accounting (ledger, beancount):** proof practitioners maintain open representations; their canonical object is the journal entry, not the evidence-linked event.
-- **Event sourcing:** the persistence discipline OpenREA borrows; OpenREA adds the economic ontology, evidence semantics, and projection interfaces event sourcing leaves undefined.
+- **Event sourcing:** the persistence discipline openREA borrows; openREA adds the economic ontology, evidence semantics, and projection interfaces event sourcing leaves undefined.
 
 None of these owns the "why is this number here?" traversal. That is this project's contribution.
 

@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:openrea:schema:0.1-draft",
-  "$comment": "OpenREA v0.1-draft document schema. Derived from SPEC.md §3-§4. This URN becomes a canonical HTTPS URI when the project namespace is finalized. Record types are strict (additionalProperties: false) — extensions belong in each record's `metadata` object, which consumers MUST tolerate (SPEC §3.2). Cross-record rules (referential integrity, supersession acyclicity, contradiction checks — SPEC §5, §7) are NOT expressible in JSON Schema and are enforced by the conformance validator in tests/conformance/validate.py.",
-  "title": "OpenREA Document",
+  "$comment": "openREA v0.1-draft document schema. Derived from SPEC.md §3-§4. This URN becomes a canonical HTTPS URI when the project namespace is finalized. Record types are strict (additionalProperties: false) — extensions belong in each record's `metadata` object, which consumers MUST tolerate (SPEC §3.2). Cross-record rules (referential integrity, supersession acyclicity, contradiction checks — SPEC §5, §7) are NOT expressible in JSON Schema and are enforced by the conformance validator in tests/conformance/validate.py.",
+  "title": "openREA Document",
   "type": "object",
   "required": ["openrea_version", "records"],
   "properties": {

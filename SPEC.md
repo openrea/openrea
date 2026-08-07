@@ -1,4 +1,4 @@
-# OpenREA Specification — v0.1 (draft)
+# openREA Specification — v0.1 (draft)
 
 Status: **draft for adversarial review.** Nothing here is stable. Field names, semantics, and structure may change until v0.1 is tagged. The words **MUST**, **SHOULD**, and **MAY** are used as in RFC 2119.
 
@@ -6,9 +6,9 @@ Status: **draft for adversarial review.** Nothing here is stable. Field names, s
 
 ## 1. Scope
 
-OpenREA specifies a portable, machine-readable representation of economic activity: nine record types, their required semantics, identity and referencing rules, time semantics, assertion/supersession lifecycle, evidence and provenance rules, and the interfaces by which deterministic **projections** (GAAP, tax, ledger, management, audit) are derived from the record.
+openREA specifies a portable, machine-readable representation of economic activity: nine record types, their required semantics, identity and referencing rules, time semantics, assertion/supersession lifecycle, evidence and provenance rules, and the interfaces by which deterministic **projections** (GAAP, tax, ledger, management, audit) are derived from the record.
 
-OpenREA does **not** specify: a database, a wire protocol, an agent framework, an application, or any particular accounting treatment. Those are implementations and consumers.
+openREA does **not** specify: a database, a wire protocol, an agent framework, an application, or any particular accounting treatment. Those are implementations and consumers.
 
 ## 2. Design commitments
 
@@ -24,7 +24,7 @@ OpenREA does **not** specify: a database, a wire protocol, an agent framework, a
 
 ### 3.1 Document
 
-An OpenREA document is JSON:
+An openREA document is JSON:
 
 ```json
 {
@@ -107,7 +107,7 @@ When both are present, the external locator is the identity and the content hash
 Plus: `mime_type` (when file-like), `source` (where it came from), `received_at`. Optional: `describes` (refs), `metadata`.
 
 ### 4.7 Assertion
-A claim by an agent about a record or attribute. **Assertions are the only mechanism by which anything becomes canonically true in OpenREA.**
+A claim by an agent about a record or attribute. **Assertions are the only mechanism by which anything becomes canonically true in openREA.**
 
 Required: `subject` (record ref, or `{ record, attribute }` pair), `asserted_by` (agent ref), `asserted_at`, `kind` (§9: `observation` | `estimate` | `judgment`), `status` (`proposed` | `accepted` | `rejected` | `superseded`). Optional: `claim` (the attribute values being asserted), `confidence` (0–1; meaningful mainly for machine asserters), `basis` (REQUIRED for `estimate` and `judgment` — the method and inputs), `evidence` (refs), `supersedes` (assertion ref), `approvals` `[ { agent, at, action } ]`.
 
@@ -176,7 +176,7 @@ v0.1 ships the projection *interface* and one worked reference (prepaid amortiza
 
 ## 11. Portability
 
-A conformant implementation MUST export, without loss: all records as OpenREA JSON/JSONL, all content-addressed evidence keyed by hash, the policy set with versions, and the `openrea_version`. A second conformant implementation importing that export MUST reproduce all projections byte-identically. **Exit is a product requirement.** An implementation that cannot pass export/import round-trip is non-conformant regardless of what else it does.
+A conformant implementation MUST export, without loss: all records as openREA JSON/JSONL, all content-addressed evidence keyed by hash, the policy set with versions, and the `openrea_version`. A second conformant implementation importing that export MUST reproduce all projections byte-identically. **Exit is a product requirement.** An implementation that cannot pass export/import round-trip is non-conformant regardless of what else it does.
 
 ## 12. Conformance
 
@@ -205,4 +205,4 @@ Genuinely open — argue with us in the issues:
 
 ---
 
-*OpenREA operationalizes the Resources-Events-Agents ontology (McCarthy, 1982; ISO 15944-4) for agent consumption. See README for prior art and positioning.*
+*openREA operationalizes the Resources-Events-Agents ontology (McCarthy, 1982; ISO 15944-4) for agent consumption. See README for prior art and positioning.*

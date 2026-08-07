@@ -1,0 +1,44 @@
+{
+  "openrea_version": "0.1-draft",
+  "description": "MUST FAIL: two assertions supersede each other. SPEC §5/§7: supersession chains must be acyclic.",
+  "records": [
+    {
+      "record_type": "agent",
+      "id": "agt_owner",
+      "recorded_at": "2026-08-01T12:00:00Z",
+      "kind": "person",
+      "name": "A. Example, Owner"
+    },
+    {
+      "record_type": "resource",
+      "id": "res_checking",
+      "recorded_at": "2026-08-01T12:00:00Z",
+      "kind": "fiat_deposit",
+      "unit": "USD"
+    },
+    {
+      "record_type": "assertion",
+      "id": "ast_alpha",
+      "recorded_at": "2026-08-02T09:00:00Z",
+      "subject": { "record": "res_checking", "attribute": "period_end_balance" },
+      "asserted_by": "agt_owner",
+      "asserted_at": "2026-08-02T09:00:00Z",
+      "kind": "observation",
+      "claim": { "period_end_balance": "1000.00 USD" },
+      "status": "superseded",
+      "supersedes": "ast_beta"
+    },
+    {
+      "record_type": "assertion",
+      "id": "ast_beta",
+      "recorded_at": "2026-08-03T09:00:00Z",
+      "subject": { "record": "res_checking", "attribute": "period_end_balance" },
+      "asserted_by": "agt_owner",
+      "asserted_at": "2026-08-03T09:00:00Z",
+      "kind": "observation",
+      "claim": { "period_end_balance": "1200.00 USD" },
+      "status": "accepted",
+      "supersedes": "ast_alpha"
+    }
+  ]
+}

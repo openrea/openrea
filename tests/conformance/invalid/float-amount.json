@@ -1,0 +1,27 @@
+{
+  "openrea_version": "0.1-draft",
+  "description": "MUST FAIL: quantity amount is a JSON float. SPEC §3.4 requires string-encoded decimals.",
+  "records": [
+    {
+      "record_type": "resource",
+      "id": "res_checking",
+      "recorded_at": "2026-08-01T12:00:00Z",
+      "kind": "fiat_deposit",
+      "unit": "USD"
+    },
+    {
+      "record_type": "event",
+      "id": "evt_bad_amount",
+      "recorded_at": "2026-08-02T09:01:00Z",
+      "event_type": "receipt",
+      "occurred_at": "2026-08-01T17:30:00Z",
+      "flows": [
+        {
+          "resource": "res_checking",
+          "direction": "increase",
+          "quantity": { "amount": 150.0, "unit": "USD", "unit_type": "currency" }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "openrea_version": "0.1-draft",
+  "description": "MUST FAIL: schema-valid document whose event settles a commitment that does not exist. SPEC §5: no dangling references.",
+  "records": [
+    {
+      "record_type": "resource",
+      "id": "res_checking",
+      "recorded_at": "2026-08-01T12:00:00Z",
+      "kind": "fiat_deposit",
+      "unit": "USD"
+    },
+    {
+      "record_type": "event",
+      "id": "evt_payment_042",
+      "recorded_at": "2026-08-02T09:01:00Z",
+      "event_type": "settlement",
+      "occurred_at": "2026-08-01T17:30:00Z",
+      "flows": [
+        {
+          "resource": "res_checking",
+          "direction": "decrease",
+          "quantity": { "amount": "980.00", "unit": "USD", "unit_type": "currency" }
+        }
+      ],
+      "settles": ["cmt_never_recorded"]
+    }
+  ]
+}

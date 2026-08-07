@@ -1,0 +1,31 @@
+{
+  "openrea_version": "0.1-draft",
+  "description": "MUST FAIL: an estimate-kind assertion without a stated basis. SPEC §9 / principle 13: estimates and judgments MUST carry their basis.",
+  "records": [
+    {
+      "record_type": "agent",
+      "id": "agt_owner",
+      "recorded_at": "2026-08-01T12:00:00Z",
+      "kind": "person",
+      "name": "A. Example, Owner"
+    },
+    {
+      "record_type": "resource",
+      "id": "res_inventory",
+      "recorded_at": "2026-08-01T12:00:00Z",
+      "kind": "inventory",
+      "unit": "unit"
+    },
+    {
+      "record_type": "assertion",
+      "id": "ast_nrv_estimate",
+      "recorded_at": "2026-08-31T12:00:00Z",
+      "subject": { "record": "res_inventory", "attribute": "net_realizable_value" },
+      "asserted_by": "agt_owner",
+      "asserted_at": "2026-08-31T12:00:00Z",
+      "kind": "estimate",
+      "claim": { "net_realizable_value": "4200.00 USD" },
+      "status": "accepted"
+    }
+  ]
+}

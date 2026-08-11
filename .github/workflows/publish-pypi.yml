@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: Apache-2.0
+# Publishes packages/python to PyPI via trusted publishing (OIDC — no tokens).
+# Trigger: push a tag like v0.1.0.
+name: Publish to PyPI
+
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install build
+      - run: python -m build packages/python --outdir dist
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist

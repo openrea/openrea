@@ -35,6 +35,8 @@ An openREA document is JSON:
 
 Streams (JSONL, one record per line) are also conformant. Record order MUST NOT carry meaning; all relationships are explicit by reference.
 
+Document files SHOULD use the **`.openrea.json`** suffix (e.g. `q3-close.openrea.json`) so editors, tooling, and agents can associate them with the schema automatically.
+
 ### 3.2 Records
 
 Every record has:

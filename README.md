@@ -46,7 +46,7 @@ Not an ERP. Not an accounting application. Not a database. Not an agent framewor
 
 ## Quick look
 
-A vendor obligation settled with a stablecoin transfer, with on-chain evidence ([full example](examples/stablecoin-settlement.json)):
+A vendor obligation settled with a stablecoin transfer, with on-chain evidence ([full example](examples/stablecoin-settlement.openrea.json)):
 
 ```json
 {

@@ -85,7 +85,7 @@ EconomicEvent:
   fulfills: payment-commitment-inv2041
 ```
 
-**openREA (from `examples/stablecoin-settlement.json`):**
+**openREA (from `examples/stablecoin-settlement.openrea.json`):**
 ```
 event evt_inv2041_settlement:
   event_type: settlement

@@ -66,6 +66,19 @@ A vendor obligation settled with a stablecoin transfer, with on-chain evidence (
 
 The same record supports a GAAP projection, a tax projection, an audit traversal, and an operations agent's "what obligations remain open?" query — without any of them owning it.
 
+## Install
+
+The schema ships as a thin convenience package:
+
+```bash
+pip install openrea-schema    # imports as `openrea`; add [validate] for jsonschema-backed validation
+```
+
+```python
+import openrea
+openrea.SCHEMA, openrea.SCHEMA_VERSION, openrea.validate(doc)
+```
+
 ## Prior art, in one breath each
 
 - **REA (McCarthy 1982, ISO 15944-4):** the ontology openREA operationalizes for agents. Not a new theory — a serialization of a forty-year-old one that predates the software able to use it.

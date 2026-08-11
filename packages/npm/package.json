@@ -1,5 +1,5 @@
 {
-  "name": "openrea",
+  "name": "openrea-schema",
   "version": "0.1.0",
   "description": "The openREA schema: an open, agent-native, evidence-linked representation of economic activity. Schema-only convenience package.",
   "main": "index.js",

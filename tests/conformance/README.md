@@ -27,11 +27,13 @@ python tests/conformance/validate.py FILE.json    # validate any document
 |---|---|---|
 | `../../examples/*.json` | pass | canonical examples are normative |
 | `valid/minimal.json` | pass | smallest useful document |
+| `valid/duality-exchange.json` | pass | SPEC §4.9 duality — two event legs of one exchange (McCarthy 1982, Fig. 6) |
 | `invalid/float-amount.json` | fail (schema) | SPEC §3.4 string decimals |
 | `invalid/estimate-missing-basis.json` | fail (schema) | SPEC §9 / principle 13 |
 | `invalid/agent-missing-operator.json` | fail (schema) | SPEC §4.2 principal reachability |
 | `invalid/dangling-ref.json` | fail (integrity) | SPEC §5 |
 | `invalid/cyclic-supersedes.json` | fail (integrity) | SPEC §5/§7 |
+| `invalid/duality-non-event.json` | fail (integrity) | SPEC §4.9 duality must link two events |
 
 ## Level 2 — implementation conformance (specified, not yet implemented)
 

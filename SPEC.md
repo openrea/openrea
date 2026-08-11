@@ -117,9 +117,11 @@ A versioned, deterministic rule converting economic facts and accepted judgments
 Required: `framework` (e.g. `US_GAAP`, `TAX_US_FED`, `MGMT`), `version`, `applies_when`, `outputs`. Optional: `required_evidence`, `logic_ref` (pointer to executable/testable rule content). Policies MUST be content-versioned: same version ⇒ same logic ⇒ same output for the same inputs.
 
 ### 4.9 Relationship
-A typed link between records not already expressed by a dedicated field: `derives_from`, `supports`, `part_of`, `corrects`, `duplicates`, `relates_to`.
+A typed link between records not already expressed by a dedicated field: `duality`, `derives_from`, `supports`, `part_of`, `corrects`, `duplicates`, `relates_to`.
 
 Required: `from`, `to`, `type`. Dedicated fields (`settles`, `supersedes`, `agreement`, …) are the normative form where they exist; Relationship covers the rest and MUST NOT be used to duplicate them.
+
+**`duality`** carries REA's exchange pairing (McCarthy 1982, pp. 561–564): it links the two **event** legs of one economic exchange — the increment event (resources flowing to the entity) with its corresponding decrement event (resources flowing from it). Both `from` and `to` MUST reference event records and MUST differ; RECOMMENDED convention: `from` = the increment-side event, `to` = the decrement-side event, from the reporting entity's perspective. Duality complements `settles`/`fulfills`: those route exchange semantics through commitments (extended-REA fulfillment); `duality` is the direct event-to-event pairing for exchanges where both legs are realized events. Duality is OPTIONAL in v0.1 — McCarthy himself documents exchanges where event-level pairing is legitimately absent (matching too tenuous below aggregate level; gains and losses as isolated increments or decrements).
 
 ## 5. Referential integrity
 
@@ -202,6 +204,7 @@ Genuinely open — argue with us in the issues:
 8. Policy changes vs. factual corrections: propagation rules through issued periods?
 9. Authorization tiers for autonomous-agent acceptance of low-risk assertions?
 10. The export format (§11): JSONL + hash-keyed blobs — sufficient, or does it need a manifest/merkle root?
+11. Duality (§4.9): should it be promotable from an optional relationship to a required pairing for exchange-classified events — and how are macro-level duality cases represented, where McCarthy shows event-level pairing is legitimately absent (matched expenses, gains/losses; McCarthy 1982 pp. 573–575)?
 
 ---
 

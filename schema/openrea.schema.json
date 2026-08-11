@@ -327,11 +327,11 @@
         "recorded_at": { "$ref": "#/$defs/timestamp" },
         "from": { "$ref": "#/$defs/ref" },
         "to": { "$ref": "#/$defs/ref" },
-        "type": { "enum": ["derives_from", "supports", "part_of", "corrects", "duplicates", "relates_to"] },
+        "type": { "enum": ["duality", "derives_from", "supports", "part_of", "corrects", "duplicates", "relates_to"] },
         "metadata": { "$ref": "#/$defs/metadata" }
       },
       "additionalProperties": false,
-      "$comment": "MUST NOT duplicate dedicated reference fields like settles/supersedes/agreement (SPEC §4.9)."
+      "$comment": "MUST NOT duplicate dedicated reference fields like settles/supersedes/agreement (SPEC §4.9). `duality` pairs the two event legs of one economic exchange (McCarthy 1982): `from` and `to` MUST both be events and MUST differ — enforced by the conformance validator."
     }
   }
 }

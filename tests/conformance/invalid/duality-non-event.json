@@ -1,0 +1,61 @@
+{
+  "openrea_version": "0.1-draft",
+  "description": "MUST FAIL: a duality relationship pointing at a commitment. SPEC §4.9: duality pairs two realized event legs — commitments are the settles/fulfills side of the model, not duality.",
+  "records": [
+    {
+      "record_type": "agent",
+      "id": "agt_buyer",
+      "recorded_at": "2026-08-03T12:00:00Z",
+      "kind": "organization",
+      "name": "Example Trading Co."
+    },
+    {
+      "record_type": "agent",
+      "id": "agt_vendor",
+      "recorded_at": "2026-08-03T12:00:00Z",
+      "kind": "organization",
+      "name": "Example Supply Inc."
+    },
+    {
+      "record_type": "resource",
+      "id": "res_inventory",
+      "recorded_at": "2026-08-03T12:00:00Z",
+      "kind": "inventory",
+      "unit": "unit"
+    },
+    {
+      "record_type": "event",
+      "id": "evt_purchase_receipt",
+      "recorded_at": "2026-08-04T15:06:00Z",
+      "event_type": "purchase_receipt",
+      "occurred_at": "2026-08-04T14:45:00Z",
+      "flows": [
+        {
+          "resource": "res_inventory",
+          "direction": "increase",
+          "quantity": { "amount": "100", "unit": "unit", "unit_type": "quantity" }
+        }
+      ]
+    },
+    {
+      "record_type": "commitment",
+      "id": "cmt_payment_due",
+      "recorded_at": "2026-08-04T15:08:00Z",
+      "commitment_type": "payment_obligation",
+      "obligor": "agt_buyer",
+      "obligee": "agt_vendor",
+      "terms": {
+        "quantity": { "amount": "1450.00", "unit": "USD", "unit_type": "currency" }
+      },
+      "due": "2026-08-19"
+    },
+    {
+      "record_type": "relationship",
+      "id": "rel_bad_duality",
+      "recorded_at": "2026-08-04T15:09:00Z",
+      "from": "evt_purchase_receipt",
+      "to": "cmt_payment_due",
+      "type": "duality"
+    }
+  ]
+}

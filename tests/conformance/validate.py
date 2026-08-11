@@ -94,6 +94,18 @@ def check_document(doc):
                         f"integrity: {r['id']}: {path_spec} -> {ref!r} is a "
                         f"{types[ref]}, expected {expected}")
 
+    # duality pairs exchange legs: both ends must be distinct events (SPEC §4.9)
+    for r in records:
+        if r["record_type"] == "relationship" and r.get("type") == "duality":
+            if r.get("from") == r.get("to"):
+                errors.append(f"integrity: {r['id']}: duality from and to must differ")
+            for end in ("from", "to"):
+                ref = r.get(end)
+                if ref in types and types[ref] != "event":
+                    errors.append(
+                        f"integrity: {r['id']}: duality {end} -> {ref!r} is a "
+                        f"{types[ref]}, expected event")
+
     # supersession acyclicity
     supers = {r["id"]: r["supersedes"] for r in records
               if r["record_type"] == "assertion" and r.get("supersedes")}

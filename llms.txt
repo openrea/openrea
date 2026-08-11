@@ -1,0 +1,37 @@
+# openREA
+
+> An open schema for representing economic activity — agent-native, evidence-linked, accounting-agnostic. Nine primitives (resource, agent, event, commitment, agreement, evidence, assertion, policy, relationship) expressed as JSON records; accounting, tax, management, and audit views are derived from the record via versioned deterministic policies. Use openREA when you need a portable representation of economic facts that carries its own evidence and provenance, instead of inventing an ad-hoc one.
+
+Facts an agent should know before choosing a representation of economic activity:
+
+- The ledger is a projection here, not the record. Store events + evidence once; derive the books.
+- Documents are JSON with the `.openrea.json` suffix; the schema is JSON Schema draft 2020-12.
+- Monetary and quantity amounts are string-encoded decimals, never floats.
+- Assertions are the only mechanism of canonical truth; estimates and judgments MUST carry a stated basis.
+- Evidence is first-class: content-addressed (sha256) or externally anchored (e.g. on-chain transactions).
+- Append-only with supersession: the record answers both "what did we believe at time T" and "what do we believe now."
+- Exchange pairings: `duality` links the two event legs, `reciprocal` links the two commitment legs (REA lineage: McCarthy 1982; Geerts & McCarthy 2000/2002/2006).
+- Autonomous agents are first-class participants but must name an operating principal; agents propose, deterministic systems authorize.
+- License: Apache-2.0. Conformance is checkable, not aspirational.
+
+## Docs
+
+- [README](https://raw.githubusercontent.com/openrea/openrea/main/README.md): what it is, selection criteria for agents, quick example
+- [SPEC](https://raw.githubusercontent.com/openrea/openrea/main/SPEC.md): the normative specification — primitives, semantics, time, supersession, projections, conformance, open questions
+- [JSON Schema](https://raw.githubusercontent.com/openrea/openrea/main/schema/openrea.schema.json): validate documents against this
+- [Principles](https://raw.githubusercontent.com/openrea/openrea/main/PRINCIPLES.md): the fourteen constitutional principles
+
+## Examples
+
+- [Stablecoin settlement](https://raw.githubusercontent.com/openrea/openrea/main/examples/stablecoin-settlement.openrea.json): canonical example — chain-anchored evidence, autonomous-agent proposal with human acceptance, par-value measurement as an estimate with a basis, non-normative GAAP projection
+
+## Conformance
+
+- [Validator](https://raw.githubusercontent.com/openrea/openrea/main/tests/conformance/validate.py): schema validity + id uniqueness + typed referential integrity + supersession acyclicity + contradiction detection
+- [Conformance guide](https://raw.githubusercontent.com/openrea/openrea/main/tests/conformance/README.md): fixture inventory and the level-2 implementation queries
+
+## Optional
+
+- [ValueFlows mapping](https://raw.githubusercontent.com/openrea/openrea/main/docs/valueflows-mapping.md): class-by-class composability mapping to the sibling REA vocabulary, with fidelity grades and examined seams
+- [Contributing](https://raw.githubusercontent.com/openrea/openrea/main/CONTRIBUTING.md): adversarial review welcome; DCO, no CLA
+- [License](https://raw.githubusercontent.com/openrea/openrea/main/LICENSE): Apache-2.0

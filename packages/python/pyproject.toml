@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "openrea"
+version = "0.1.0"
+description = "The openREA schema: an open, agent-native, evidence-linked representation of economic activity. Schema-only convenience package."
+readme = "README.md"
+license = "Apache-2.0"
+authors = [{ name = "Shannon Wright", email = "shannon@themaevenoffice.com" }]
+requires-python = ">=3.9"
+keywords = ["accounting", "rea", "schema", "json-schema", "economic-events", "provenance", "agents", "audit"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Financial and Insurance Industry",
+  "Topic :: Office/Business :: Financial :: Accounting",
+  "Programming Language :: Python :: 3",
+]
+
+[project.urls]
+Homepage = "https://github.com/openrea/openrea"
+Specification = "https://github.com/openrea/openrea/blob/main/SPEC.md"
+Issues = "https://github.com/openrea/openrea/issues"
+
+[project.optional-dependencies]
+validate = ["jsonschema>=4.18"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/openrea"]

@@ -1,0 +1,14 @@
+{
+  "name": "openrea",
+  "version": "0.1.0",
+  "description": "The openREA schema: an open, agent-native, evidence-linked representation of economic activity. Schema-only convenience package.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": ["index.js", "index.d.ts", "openrea.schema.json", "README.md"],
+  "keywords": ["accounting", "rea", "schema", "json-schema", "economic-events", "provenance", "agents", "audit"],
+  "author": "Shannon Wright <shannon@themaevenoffice.com>",
+  "license": "Apache-2.0",
+  "repository": { "type": "git", "url": "git+https://github.com/openrea/openrea.git", "directory": "packages/npm" },
+  "homepage": "https://github.com/openrea/openrea",
+  "bugs": { "url": "https://github.com/openrea/openrea/issues" }
+}

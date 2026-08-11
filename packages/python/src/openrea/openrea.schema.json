@@ -1,0 +1,337 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:openrea:schema:0.1-draft",
+  "$comment": "openREA v0.1-draft document schema. Derived from SPEC.md §3-§4. This URN becomes a canonical HTTPS URI when the project namespace is finalized. Record types are strict (additionalProperties: false) — extensions belong in each record's `metadata` object, which consumers MUST tolerate (SPEC §3.2). Cross-record rules (referential integrity, supersession acyclicity, contradiction checks — SPEC §5, §7) are NOT expressible in JSON Schema and are enforced by the conformance validator in tests/conformance/validate.py.",
+  "title": "openREA Document",
+  "type": "object",
+  "required": ["openrea_version", "records"],
+  "properties": {
+    "openrea_version": { "const": "0.1-draft" },
+    "description": { "type": "string" },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/record" }
+    }
+  },
+  "additionalProperties": true,
+
+  "$defs": {
+    "record": {
+      "oneOf": [
+        { "$ref": "#/$defs/resource" },
+        { "$ref": "#/$defs/agent" },
+        { "$ref": "#/$defs/event" },
+        { "$ref": "#/$defs/commitment" },
+        { "$ref": "#/$defs/agreement" },
+        { "$ref": "#/$defs/evidence" },
+        { "$ref": "#/$defs/assertion" },
+        { "$ref": "#/$defs/policy" },
+        { "$ref": "#/$defs/relationship" }
+      ]
+    },
+
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "$comment": "Uniqueness within the record set is normative; format is not (SPEC §3.3). RECOMMENDED: type-prefixed ULIDs (evt_01J4Q2...). Human-meaningful ids are permitted."
+    },
+    "ref": { "$ref": "#/$defs/id" },
+    "refList": { "type": "array", "items": { "$ref": "#/$defs/ref" }, "minItems": 1 },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "dateOnly": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "dateOrTimestamp": {
+      "oneOf": [ { "$ref": "#/$defs/dateOnly" }, { "$ref": "#/$defs/timestamp" } ]
+    },
+    "period": {
+      "type": "object",
+      "required": ["start"],
+      "properties": {
+        "start": { "$ref": "#/$defs/dateOrTimestamp" },
+        "end": { "$ref": "#/$defs/dateOrTimestamp" }
+      },
+      "additionalProperties": false
+    },
+    "decimalString": {
+      "type": "string",
+      "pattern": "^-?[0-9]+(\\.[0-9]+)?$",
+      "$comment": "Economic magnitudes are string-encoded decimals, never floats (SPEC §3.4)."
+    },
+    "quantity": {
+      "type": "object",
+      "required": ["amount", "unit", "unit_type"],
+      "properties": {
+        "amount": { "$ref": "#/$defs/decimalString" },
+        "unit": { "type": "string", "minLength": 1 },
+        "unit_type": { "enum": ["currency", "token", "quantity"] },
+        "token_ref": {
+          "type": "object",
+          "required": ["chain", "contract"],
+          "properties": {
+            "chain": { "type": "string" },
+            "contract": { "type": "string" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "contentHash": {
+      "type": "object",
+      "required": ["algorithm", "value"],
+      "properties": {
+        "algorithm": { "enum": ["sha256"] },
+        "value": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "externalLocator": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "type": "string", "minLength": 1 },
+        "chain": { "type": "string" },
+        "tx_hash": { "type": "string" },
+        "log_index": { "type": "integer", "minimum": 0 },
+        "uri": { "type": "string" }
+      },
+      "additionalProperties": true,
+      "$comment": "Open by design: locator shapes vary by anchoring system (chains, registries, notarization services). `type` is the discriminator."
+    },
+    "approval": {
+      "type": "object",
+      "required": ["agent", "at", "action"],
+      "properties": {
+        "agent": { "$ref": "#/$defs/ref" },
+        "at": { "$ref": "#/$defs/timestamp" },
+        "action": { "enum": ["accepted", "rejected"] }
+      },
+      "additionalProperties": false
+    },
+    "participant": {
+      "type": "object",
+      "required": ["agent", "role"],
+      "properties": {
+        "agent": { "$ref": "#/$defs/ref" },
+        "role": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "flow": {
+      "type": "object",
+      "required": ["resource", "direction", "quantity"],
+      "properties": {
+        "resource": { "$ref": "#/$defs/ref" },
+        "direction": { "enum": ["increase", "decrease", "transfer"] },
+        "quantity": { "$ref": "#/$defs/quantity" },
+        "from_agent": { "$ref": "#/$defs/ref" },
+        "to_agent": { "$ref": "#/$defs/ref" }
+      },
+      "additionalProperties": false
+    },
+    "metadata": { "type": "object" },
+
+    "resource": {
+      "type": "object",
+      "required": ["record_type", "id", "recorded_at", "kind", "unit"],
+      "properties": {
+        "record_type": { "const": "resource" },
+        "id": { "$ref": "#/$defs/id" },
+        "recorded_at": { "$ref": "#/$defs/timestamp" },
+        "kind": { "type": "string", "minLength": 1 },
+        "unit": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "fungible": { "type": "boolean" },
+        "custody": { "type": "object" },
+        "external_refs": { "type": "object" },
+        "metadata": { "$ref": "#/$defs/metadata" }
+      },
+      "additionalProperties": false
+    },
+
+    "agent": {
+      "type": "object",
+      "required": ["record_type", "id", "recorded_at", "kind", "name"],
+      "properties": {
+        "record_type": { "const": "agent" },
+        "id": { "$ref": "#/$defs/id" },
+        "recorded_at": { "$ref": "#/$defs/timestamp" },
+        "kind": { "enum": ["person", "organization", "system", "autonomous_agent"] },
+        "name": { "type": "string", "minLength": 1 },
+        "identifiers": { "type": "object" },
+        "operated_by": { "$ref": "#/$defs/ref" },
+        "roles": { "type": "array", "items": { "type": "string" } },
+        "metadata": { "$ref": "#/$defs/metadata" }
+      },
+      "additionalProperties": false,
+      "if": { "properties": { "kind": { "const": "autonomous_agent" } } },
+      "then": { "required": ["record_type", "id", "recorded_at", "kind", "name", "operated_by"] },
+      "$comment": "An autonomous agent MUST name its operating principal (SPEC §4.2): obligations bind principals, never the automation."
+    },
+
+    "event": {
+      "type": "object",
+      "required": ["record_type", "id", "recorded_at", "event_type", "occurred_at"],
+      "properties": {
+        "record_type": { "const": "event" },
+        "id": { "$ref": "#/$defs/id" },
+        "recorded_at": { "$ref": "#/$defs/timestamp" },
+        "event_type": { "type": "string", "minLength": 1 },
+        "occurred_at": { "$ref": "#/$defs/timestamp" },
+        "effective_at": { "$ref": "#/$defs/dateOrTimestamp" },
+        "effective_period": { "$ref": "#/$defs/period" },
+        "participants": { "type": "array", "items": { "$ref": "#/$defs/participant" } },
+        "flows": { "type": "array", "items": { "$ref": "#/$defs/flow" }, "minItems": 1 },
+        "subject": { "$ref": "#/$defs/ref" },
+        "settles": { "$ref": "#/$defs/refList" },
+        "fulfills": { "$ref": "#/$defs/refList" },
+        "evidence": { "$ref": "#/$defs/refList" },
+        "metadata": { "$ref": "#/$defs/metadata" }
+      },
+      "additionalProperties": false,
+      "anyOf": [ { "required": ["flows"] }, { "required": ["subject"] } ],
+      "$comment": "An event describes; assertions confer canonical standing (SPEC §4.3, §7)."
+    },
+
+    "commitment": {
+      "type": "object",
+      "required": ["record_type", "id", "recorded_at", "commitment_type", "obligor", "obligee", "terms", "due"],
+      "properties": {
+        "record_type": { "const": "commitment" },
+        "id": { "$ref": "#/$defs/id" },
+        "recorded_at": { "$ref": "#/$defs/timestamp" },
+        "commitment_type": { "type": "string", "minLength": 1 },
+        "obligor": { "$ref": "#/$defs/ref" },
+        "obligee": { "$ref": "#/$defs/ref" },
+        "agreement": { "$ref": "#/$defs/ref" },
+        "terms": {
+          "type": "object",
+          "properties": {
+            "quantity": { "$ref": "#/$defs/quantity" },
+            "resource": { "$ref": "#/$defs/ref" },
+            "for": { "type": "string" }
+          },
+          "additionalProperties": false,
+          "anyOf": [ { "required": ["quantity"] }, { "required": ["resource"] } ]
+        },
+        "due": {
+          "oneOf": [ { "$ref": "#/$defs/dateOrTimestamp" }, { "$ref": "#/$defs/period" } ]
+        },
+        "settlement_terms": { "type": "array", "items": { "type": "string" } },
+        "metadata": { "$ref": "#/$defs/metadata" }
+      },
+      "additionalProperties": false,
+      "$comment": "Commitment status is derived from settling/fulfilling events, never stored (SPEC §4.4)."
+    },
+
+    "agreement": {
+      "type": "object",
+      "required": ["record_type", "id", "recorded_at", "parties"],
+      "properties": {
+        "record_type": { "const": "agreement" },
+        "id": { "$ref": "#/$defs/id" },
+        "recorded_at": { "$ref": "#/$defs/timestamp" },
+        "parties": { "$ref": "#/$defs/refList" },
+        "commitments": { "$ref": "#/$defs/refList" },
+        "evidence": { "$ref": "#/$defs/refList" },
+        "effective_period": { "$ref": "#/$defs/period" },
+        "metadata": { "$ref": "#/$defs/metadata" }
+      },
+      "additionalProperties": false
+    },
+
+    "evidence": {
+      "type": "object",
+      "required": ["record_type", "id", "recorded_at", "source", "received_at"],
+      "properties": {
+        "record_type": { "const": "evidence" },
+        "id": { "$ref": "#/$defs/id" },
+        "recorded_at": { "$ref": "#/$defs/timestamp" },
+        "content_hash": { "$ref": "#/$defs/contentHash" },
+        "external_locator": { "$ref": "#/$defs/externalLocator" },
+        "mime_type": { "type": "string" },
+        "source": { "type": "string", "minLength": 1 },
+        "received_at": { "$ref": "#/$defs/timestamp" },
+        "describes": { "$ref": "#/$defs/refList" },
+        "metadata": { "$ref": "#/$defs/metadata" }
+      },
+      "additionalProperties": false,
+      "anyOf": [ { "required": ["content_hash"] }, { "required": ["external_locator"] } ],
+      "$comment": "At least one identity anchor. When both are present, the external locator is the identity and the content hash is the durability snapshot (SPEC §4.6). Evidence is immutable."
+    },
+
+    "assertion": {
+      "type": "object",
+      "required": ["record_type", "id", "recorded_at", "subject", "asserted_by", "asserted_at", "kind", "status"],
+      "properties": {
+        "record_type": { "const": "assertion" },
+        "id": { "$ref": "#/$defs/id" },
+        "recorded_at": { "$ref": "#/$defs/timestamp" },
+        "subject": {
+          "oneOf": [
+            { "$ref": "#/$defs/ref" },
+            {
+              "type": "object",
+              "required": ["record", "attribute"],
+              "properties": {
+                "record": { "$ref": "#/$defs/ref" },
+                "attribute": { "type": "string", "minLength": 1 }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "asserted_by": { "$ref": "#/$defs/ref" },
+        "asserted_at": { "$ref": "#/$defs/timestamp" },
+        "kind": { "enum": ["observation", "estimate", "judgment"] },
+        "claim": { "type": "object" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "basis": { "type": "string", "minLength": 1 },
+        "evidence": { "$ref": "#/$defs/refList" },
+        "status": { "enum": ["proposed", "accepted", "rejected", "superseded"] },
+        "supersedes": { "$ref": "#/$defs/ref" },
+        "approvals": { "type": "array", "items": { "$ref": "#/$defs/approval" } },
+        "metadata": { "$ref": "#/$defs/metadata" }
+      },
+      "additionalProperties": false,
+      "if": { "properties": { "kind": { "enum": ["estimate", "judgment"] } } },
+      "then": { "required": ["record_type", "id", "recorded_at", "subject", "asserted_by", "asserted_at", "kind", "status", "basis"] },
+      "$comment": "Assertions are the only mechanism of canonical truth (SPEC §4.7). Estimates and judgments MUST state their basis (SPEC §9, principle 13)."
+    },
+
+    "policy": {
+      "type": "object",
+      "required": ["record_type", "id", "recorded_at", "framework", "version", "applies_when", "outputs"],
+      "properties": {
+        "record_type": { "const": "policy" },
+        "id": { "$ref": "#/$defs/id" },
+        "recorded_at": { "$ref": "#/$defs/timestamp" },
+        "framework": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "applies_when": { "type": "object" },
+        "required_evidence": { "type": "array", "items": { "type": "string" } },
+        "outputs": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "logic_ref": { "type": "string" },
+        "metadata": { "$ref": "#/$defs/metadata" }
+      },
+      "additionalProperties": false,
+      "$comment": "Same version ⇒ same logic ⇒ same output for the same inputs (SPEC §4.8)."
+    },
+
+    "relationship": {
+      "type": "object",
+      "required": ["record_type", "id", "recorded_at", "from", "to", "type"],
+      "properties": {
+        "record_type": { "const": "relationship" },
+        "id": { "$ref": "#/$defs/id" },
+        "recorded_at": { "$ref": "#/$defs/timestamp" },
+        "from": { "$ref": "#/$defs/ref" },
+        "to": { "$ref": "#/$defs/ref" },
+        "type": { "enum": ["duality", "reciprocal", "derives_from", "supports", "part_of", "corrects", "duplicates", "relates_to"] },
+        "metadata": { "$ref": "#/$defs/metadata" }
+      },
+      "additionalProperties": false,
+      "$comment": "MUST NOT duplicate dedicated reference fields like settles/supersedes/agreement (SPEC §4.9). `duality` pairs the two event legs of one economic exchange (McCarthy 1982): both ends MUST be distinct events. `reciprocal` pairs the two commitment legs of one contracted exchange (Geerts & McCarthy 2002): both ends MUST be distinct commitments. Both constraints are enforced by the conformance validator."
+    }
+  }
+}

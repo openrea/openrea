@@ -1,0 +1,65 @@
+{
+  "openrea_version": "0.1-draft",
+  "description": "Reciprocal fixture — extended REA's Commitment-Commitment pairing (Geerts & McCarthy 2002) in openREA form. One purchase order: the vendor's delivery obligation paired by a reciprocal relationship with the buyer's payment obligation, both bundled by the governing agreement. Agreement bundles; reciprocal pairs.",
+  "records": [
+    {
+      "record_type": "agent",
+      "id": "agt_buyer",
+      "recorded_at": "2026-08-03T12:00:00Z",
+      "kind": "organization",
+      "name": "Example Trading Co.",
+      "roles": ["buyer"]
+    },
+    {
+      "record_type": "agent",
+      "id": "agt_vendor",
+      "recorded_at": "2026-08-03T12:00:00Z",
+      "kind": "organization",
+      "name": "Example Supply Inc.",
+      "roles": ["vendor"]
+    },
+    {
+      "record_type": "agreement",
+      "id": "agr_po_2088",
+      "recorded_at": "2026-08-03T14:00:00Z",
+      "parties": ["agt_buyer", "agt_vendor"],
+      "commitments": ["cmt_delivery", "cmt_payment"]
+    },
+    {
+      "record_type": "commitment",
+      "id": "cmt_delivery",
+      "recorded_at": "2026-08-03T14:01:00Z",
+      "commitment_type": "delivery_obligation",
+      "obligor": "agt_vendor",
+      "obligee": "agt_buyer",
+      "agreement": "agr_po_2088",
+      "terms": {
+        "quantity": { "amount": "100", "unit": "unit", "unit_type": "quantity" },
+        "for": "Widgets per purchase order 2088"
+      },
+      "due": "2026-08-15"
+    },
+    {
+      "record_type": "commitment",
+      "id": "cmt_payment",
+      "recorded_at": "2026-08-03T14:01:00Z",
+      "commitment_type": "payment_obligation",
+      "obligor": "agt_buyer",
+      "obligee": "agt_vendor",
+      "agreement": "agr_po_2088",
+      "terms": {
+        "quantity": { "amount": "1450.00", "unit": "USD", "unit_type": "currency" },
+        "for": "Payment for purchase order 2088, net 15 from delivery"
+      },
+      "due": "2026-08-30"
+    },
+    {
+      "record_type": "relationship",
+      "id": "rel_po_reciprocal",
+      "recorded_at": "2026-08-03T14:02:00Z",
+      "from": "cmt_delivery",
+      "to": "cmt_payment",
+      "type": "reciprocal"
+    }
+  ]
+}

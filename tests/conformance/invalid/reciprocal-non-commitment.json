@@ -1,0 +1,61 @@
+{
+  "openrea_version": "0.1-draft",
+  "description": "MUST FAIL: a reciprocal relationship pointing at an event. SPEC §4.9: reciprocal pairs two commitment legs — the event level is duality's job.",
+  "records": [
+    {
+      "record_type": "agent",
+      "id": "agt_buyer",
+      "recorded_at": "2026-08-03T12:00:00Z",
+      "kind": "organization",
+      "name": "Example Trading Co."
+    },
+    {
+      "record_type": "agent",
+      "id": "agt_vendor",
+      "recorded_at": "2026-08-03T12:00:00Z",
+      "kind": "organization",
+      "name": "Example Supply Inc."
+    },
+    {
+      "record_type": "resource",
+      "id": "res_checking",
+      "recorded_at": "2026-08-03T12:00:00Z",
+      "kind": "fiat_deposit",
+      "unit": "USD"
+    },
+    {
+      "record_type": "commitment",
+      "id": "cmt_delivery",
+      "recorded_at": "2026-08-03T14:01:00Z",
+      "commitment_type": "delivery_obligation",
+      "obligor": "agt_vendor",
+      "obligee": "agt_buyer",
+      "terms": {
+        "quantity": { "amount": "100", "unit": "unit", "unit_type": "quantity" }
+      },
+      "due": "2026-08-15"
+    },
+    {
+      "record_type": "event",
+      "id": "evt_payment",
+      "recorded_at": "2026-08-05T09:11:00Z",
+      "event_type": "settlement",
+      "occurred_at": "2026-08-05T09:02:00Z",
+      "flows": [
+        {
+          "resource": "res_checking",
+          "direction": "decrease",
+          "quantity": { "amount": "1450.00", "unit": "USD", "unit_type": "currency" }
+        }
+      ]
+    },
+    {
+      "record_type": "relationship",
+      "id": "rel_bad_reciprocal",
+      "recorded_at": "2026-08-05T09:12:00Z",
+      "from": "cmt_delivery",
+      "to": "evt_payment",
+      "type": "reciprocal"
+    }
+  ]
+}

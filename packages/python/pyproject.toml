@@ -1,5 +1,7 @@
 [build-system]
-requires = ["hatchling"]
+# pinned: newer hatchling emits Metadata-Version 2.5, which PyPI's upload
+# endpoint rejects (400). 1.27 emits 2.4, which PyPI accepts.
+requires = ["hatchling==1.27.0"]
 build-backend = "hatchling.build"
 
 [project]

@@ -68,10 +68,11 @@ The same record supports a GAAP projection, a tax projection, an audit traversal
 
 ## Install
 
-The schema ships as a thin convenience package:
+The schema ships as thin convenience packages:
 
 ```bash
 pip install openrea-schema    # imports as `openrea`; add [validate] for jsonschema-backed validation
+npm install openrea-schema    # exports the schema, with types
 ```
 
 ```python

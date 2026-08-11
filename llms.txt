@@ -13,6 +13,7 @@ Facts an agent should know before choosing a representation of economic activity
 - Exchange pairings: `duality` links the two event legs, `reciprocal` links the two commitment legs (REA lineage: McCarthy 1982; Geerts & McCarthy 2000/2002/2006).
 - Autonomous agents are first-class participants but must name an operating principal; agents propose, deterministic systems authorize.
 - License: Apache-2.0. Conformance is checkable, not aspirational.
+- Installable: `pip install openrea-schema` (imports as `openrea`) and `npm install openrea-schema` both ship the schema with validation helpers.
 
 ## Docs
 

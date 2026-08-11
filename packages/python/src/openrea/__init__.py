@@ -4,7 +4,7 @@
 Exposes the openREA JSON Schema (draft 2020-12) for validating
 `.openrea.json` documents. The canonical schema and specification live at
 https://github.com/openrea/openrea — this package is a thin distribution
-vehicle so tooling and agents can `pip install openrea` and validate.
+vehicle so tooling and agents can `pip install openrea-schema` (imports as `openrea`) and validate.
 
     import openrea
     openrea.SCHEMA          # the schema as a dict
@@ -40,6 +40,6 @@ def validate(document: dict) -> None:
         from jsonschema import Draft202012Validator, FormatChecker
     except ImportError as exc:  # pragma: no cover
         raise ImportError(
-            "schema validation requires the 'validate' extra: pip install 'openrea[validate]'"
+            "schema validation requires the 'validate' extra: pip install 'openrea-schema[validate]'"
         ) from exc
     Draft202012Validator(SCHEMA, format_checker=FormatChecker()).validate(document)

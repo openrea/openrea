@@ -7,7 +7,7 @@ import openrea
 
 openrea.SCHEMA           # the JSON Schema (draft 2020-12) as a dict
 openrea.SCHEMA_VERSION   # "0.1-draft"
-openrea.validate(doc)    # pip install 'openrea[validate]'
+openrea.validate(doc)    # pip install 'openrea-schema[validate]'
 ```
 
 Documents use the `.openrea.json` suffix. This package is schema-only by design: the specification, canonical examples, conformance suite, and open questions live in the repository. Full document conformance additionally requires the cross-record checks (referential integrity, supersession acyclicity, contradiction detection) that JSON Schema cannot express — see [`tests/conformance`](https://github.com/openrea/openrea/tree/main/tests/conformance).

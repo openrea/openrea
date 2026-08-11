@@ -5,7 +5,7 @@ requires = ["hatchling==1.27.0"]
 build-backend = "hatchling.build"
 
 [project]
-name = "openrea"
+name = "openrea-schema"
 version = "0.1.0"
 description = "The openREA schema: an open, agent-native, evidence-linked representation of economic activity. Schema-only convenience package."
 readme = "README.md"

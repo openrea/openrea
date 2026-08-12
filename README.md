@@ -88,7 +88,7 @@ openrea.SCHEMA, openrea.SCHEMA_VERSION, openrea.validate(doc)
 - **Plain-text accounting (ledger, beancount):** proof practitioners maintain open representations; their canonical object is the journal entry, not the evidence-linked event.
 - **Event sourcing:** the persistence discipline openREA borrows; openREA adds the economic ontology, evidence semantics, and projection interfaces event sourcing leaves undefined.
 
-None of these owns the "why is this number here?" traversal. That is this project's contribution.
+None of these owns the "why is this number here?" traversal. That is this project's contribution — inventoried honestly, debts and all, in [docs/contributions.md](docs/contributions.md).
 
 ## Principles
 

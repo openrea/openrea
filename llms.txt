@@ -34,5 +34,6 @@ Facts an agent should know before choosing a representation of economic activity
 ## Optional
 
 - [ValueFlows mapping](https://raw.githubusercontent.com/openrea/openrea/main/docs/valueflows-mapping.md): class-by-class composability mapping to the sibling REA vocabulary, with fidelity grades and examined seams
+- [Contributions and debts](https://raw.githubusercontent.com/openrea/openrea/main/docs/contributions.md): what openREA inherits from the REA lineage (with citations) versus what it adds — evidence, assertions/epistemics, accountable agents, projection contracts, conformance
 - [Contributing](https://raw.githubusercontent.com/openrea/openrea/main/CONTRIBUTING.md): adversarial review welcome; DCO, no CLA
 - [License](https://raw.githubusercontent.com/openrea/openrea/main/LICENSE): Apache-2.0
